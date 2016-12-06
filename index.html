@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" ng-app='reminder'>
+<head>
+	<meta charset="UTF-8" />
+	<title>icloud</title>
+	<link rel="stylesheet" href="index.css" />
+	<script src='js/jquery.js'></script>
+	<script src='js/angular.js'></script>
+	<script src='js/index.js'></script>
+</head>
+<body ng-controller='mainCtrl'>
+	<div id="left">
+		<div id="icloud">
+			<div class='icloud-left'>
+				<a href="" ></a>
+				<span>提醒事项</span>
+				<span class='xia'></span>
+			</div>
+			<div class='icloud-right' ng-click='addList();save2local()'>
+			</div>
+		</div>		
+		<div class='reminder'>
+			<div class="plan">
+				<div class='clock-icon'>
+				</div>
+				<div class='title'>已计划</div>
+			</div>
+			<div my-ul>
+				<li class='every' ng-repeat='v in lists track by $index' ng-class="{active:cu===$index}">
+					<div class='circle {{v.theme}}'></div>
+					<div class='content'>
+						<input type="text" class='title' ng-model='v.name' ng-keyup='save2local()' />
+						<div class='null'></div>
+						<div class='wifi'></div>
+					</div>
+					
+				</li>
+			</div>
+		</div>
+	</div>
+	<div id="right">
+		<div class="right-top">
+			<div class="top-search">
+				<div class="search-icon"></div>
+				<input type="text" class='search-word' value='搜索所有提醒'/>
+			</div>
+			<div class="menu">
+				<div class='message' ng-click='xianshi()'>
+					<div class="name">danny</div>
+					<div class='down'></div>
+				</div>
+				
+				<div class='mid-line'></div>
+				<div class='question'></div>
+				<div class='hide'>
+					<div class='sanjiao'></div>
+					<div class='setting'>icloud设置</div>
+					<div class='quit'>注销</div>
+				</div>
+			</div>
+		</div>
+		<div class="right-bottom">
+			<div class='select2'>
+				<div class='big-select {{lists[cu].theme}}'>{{lists[cu].name}}</div>
+				<div my-button></div>
+				<div class='view'>
+					<ul class='contain'>
+						<li class='youjiao'></li>
+						<li class='{{lists[cu].theme}} input ' ng-keyup="save2local()">{{lists[cu].name}}</li>
+						<li class='listcolor'>列表颜色</li> 
+						<li class='color'>
+							<div class=" {{i}}" ng-repeat="i in color"  ng-click="lists[cu].theme=i;save2local()">
+								<em class='yuan'></em>
+							</div>
+						</li>
+						<li class='line'></li>
+						<li class='dixia'>
+							<ul class='xia-left' ng-click='delete()'>删除</ul>
+							<ul class='xia-middle' ng-click='cancel()'>取消</ul>
+							<ul class='xia-right' ng-click="cancel();save2local()">完成</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class='works'>
+				<div class="work-lists">
+					<div class='list-left' ng-click='dian();save2local()'></div>
+					<div class='list-right'>
+						<div class='already' ng-dblclick="clear();save2local()">已完成: {{count()}} 项</div>
+						<div class='clear {{lists[cu].theme}}'  ng-click='clear();save2local()'>清除已完成事项</div>
+					</div>
+				</div>
+				<div class="listss"  ng-if="v.state===1"  ng-repeat="v in lists[cu].todos">
+					<div class='bg-yuan {{lists[cu].theme}}' ng-click="v.state=0;save2local()"> </div>
+					<div class='list-right'>
+						<input type="text" value='{{v.name}}'/><div class='detial {{lists[cu].theme}}'>详细信息</div>
+					</div>
+					
+				</div>
+				<div class='wei'>
+					<div class="list-right">
+						<div class='list-left2' ng-click='dian2();save2local()'></div>
+						<div class="already">未完成: {{count2()}} 项</div>
+					</div>
+					<div class='nei' ng-if='v.state===0' ng-repeat='v in lists[cu].todos'>
+						<div class='zuo-yuan {{lists[cu].theme}}'  ng-click="animate();v.state=1;save2local();"> </div>
+						<input type="text" name="bianji" value='{{v.name}}' />
+						<div class='detial {{lists[cu].theme}}'>详细信息</div>
+					</div>
+				</div>
+				
+				<div class="linetiao {{lists[cu].theme}}" >
+							<div class='topp {{lists[cu].theme}}'></div>
+							<div class='bottom {{lists[cu].theme}}'></div>
+							<div class='zuo-yuan1 {{lists[cu].theme}}' ng-click="lists[cu].todos.push({name:value,state:0});value='';save2local()"> </div>
+							<input class="inp {{lists[cu].theme}}" ng-model="value" type="text" name="bianji" value='' />
+				</div>
+				<div class="import">
+					<div block></div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</body>
+</html>
